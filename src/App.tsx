@@ -5,6 +5,7 @@ import { Movie } from './types';
 
 import { MoviesList } from './components/MoviesList/MoviesList';
 import { MovieDetails } from './components/MovieDetails/MovieDetails';
+import { NewMovieForm } from './components/NewMovieForm/NewMovieForm';
 
 const moviesFromDoc: Movie[] = [
   {
@@ -131,6 +132,8 @@ const App: React.FC = () => {
         >
           Reset
         </button>
+
+        <NewMovieForm />
       </header>
 
       <main className="App__main">
