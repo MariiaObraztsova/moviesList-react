@@ -1,0 +1,19 @@
+.MoviesList {
+  width: 100%;
+}
+.MoviesList__list {
+  list-style: none;
+  padding-left: 5px;
+}
+.MoviesList__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: #fafafd;
+  line-height: 1.5;
+}
+
+/*# sourceMappingURL=MoviesList.css.map */
