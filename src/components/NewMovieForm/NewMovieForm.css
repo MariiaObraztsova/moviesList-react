@@ -1,0 +1,16 @@
+.NewMovieForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.NewMovieForm__input {
+  margin-left: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+.NewMovieForm__button {
+  width: 150px;
+}
+
+/*# sourceMappingURL=NewMovieForm.css.map */

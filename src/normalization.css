@@ -40,7 +40,7 @@ button {
   transition: background-color 0.12s;
   font-size: inherit;
   min-width: 100px;
-  margin-bottom: 5px;
+  margin-right: 10px;
 }
 button:hover {
   background-color: #4d457b;

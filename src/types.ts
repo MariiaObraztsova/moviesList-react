@@ -3,5 +3,12 @@ export interface Movie {
   title: string,
   year: number,
   format: string,
-  actors: string[]
+  actors: Actor[]
+}
+
+export interface Actor {
+  // id: number,
+  name: string,
+  // createdAt: string,
+  // updatedAt: string
 }

@@ -15,5 +15,8 @@
   background-color: #fafafd;
   line-height: 1.5;
 }
+.MoviesList__button {
+  margin-right: 10px;
+}
 
 /*# sourceMappingURL=MoviesList.css.map */

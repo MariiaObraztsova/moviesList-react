@@ -2,56 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { Movie } from '../../types';
 import './MovieDetails.css';
 
-const movies: Movie[] = [
-  {
-    id: 1,
-    title: "Casablanca",
-    year: 1942,
-    format: "DVD",
-    actors: [
-        "Humphrey Bogartt",
-        "Ingrid Bergman",
-        "Claude Rains",
-        "Peter Lorre"
-    ]
-  },
-  {
-    id: 2,
-    title: "Blazing Saddles",
-    year: 1974,
-    format: "VHS",
-    actors: [
-      "Mel Brooks", "Clevon Little", "Harvey Korman", "Gene Wilder", "Slim Pickens", "Madeline Kahn"
-    ]
-  }
-];
-
 type Props = {
   movieId: number,
+  movies: Movie[]
 }
 
 export const MovieDetails: React.FC<Props> = React.memo(
-  ({ movieId }) => {
+  ({ movieId, movies }) => {
     const [ movie, setMovie ] = useState<Movie>();
   
-    // const loadMovieDetails = () => {
-    //   const movieFromServer = movies.find(item => item.id === movieId);
+    const loadMovieDetails = async () => {
+      const selectedMovie = movies.find(movie => movie.id === movieId);
   
-    //   setMovie(movieFromServer);
-    // }
+      setMovie(selectedMovie);
+    }
   
     useEffect(() => {
-      const movieFromServer = movies.find(item => item.id === movieId);
-  
-      setMovie(movieFromServer);
+      loadMovieDetails();
     }, [movieId]);
+
+    console.log(movie);
 
     return (
       <div className="MovieDetail">
         {movie ? (
         <>
           <h2>
-            {`${movie.title}, ${movie?.year}`}
+            {`${movie.title}, ${movie.year}`}
           </h2>
 
           <p>
@@ -62,10 +39,10 @@ export const MovieDetails: React.FC<Props> = React.memo(
             Actors:
             {movie.actors.map(actor => (
               <li
-                key={actor}
+                key={actor.name}
                 className="MovieDetail__actor"
               >
-                {actor}
+                {actor.name}
               </li>
             ))}
           </ul>

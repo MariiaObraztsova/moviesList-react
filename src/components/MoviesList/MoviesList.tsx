@@ -2,11 +2,14 @@ import React from 'react';
 import { Movie } from '../../types';
 import './MoviesList.css';
 
+import { deleteMovie } from '../../api/api';
+
 type Props = {
   selectedMovieId: number,
   preparedMovies: Movie[],
   seeMovieDetails: (movieId: number) => void,
   closeMovieDetails: () => void,
+  updateMovies: () => void,
 }
 
 export const MoviesList: React.FC<Props> = ({
@@ -14,6 +17,7 @@ export const MoviesList: React.FC<Props> = ({
   preparedMovies,
   seeMovieDetails,
   closeMovieDetails,
+  updateMovies
 }) => {
   return (
     <div className="MoviesList">
@@ -28,21 +32,34 @@ export const MoviesList: React.FC<Props> = ({
             className="MoviesList__item"
           >
             {`${movie.title}, ${movie.year}`}
-            {movie.id === selectedMovieId ? (
-              <button
-              type="button"
-              onClick={closeMovieDetails}
-            >
-              Close
-            </button>
-            ) : (
+
+            <div className="MovieList__buttons">
               <button
                 type="button"
-                onClick={() => seeMovieDetails(movie.id)}
+                onClick={() => {
+                  deleteMovie(movie.id);
+                  updateMovies();
+                }}
               >
-              View details
-            </button>
-            )}
+                Delete movie
+              </button>
+
+              {movie.id === selectedMovieId ? (
+                <button
+                type="button"
+                onClick={closeMovieDetails}
+              >
+                Close
+              </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => seeMovieDetails(movie.id)}
+                >
+                View details
+              </button>
+              )}
+            </div>
           </li>
         ))}
       </ul>

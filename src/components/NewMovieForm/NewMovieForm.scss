@@ -1,0 +1,17 @@
+.NewMovieForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  &__input {
+    margin-left: 5px;
+    padding: 5px;
+
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+
+  &__button {
+    width: 150px;
+  }
+}
