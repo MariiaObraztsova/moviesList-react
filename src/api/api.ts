@@ -1,4 +1,4 @@
-import { CreatedMovie, Movie } from "../types";
+import { CreatedMovie } from "../types";
 import movies from './movies.txt';
 
 const API_URL = 'http://localhost:8000/api/v1/movies';
@@ -90,8 +90,6 @@ export const createMovie = async (movie: CreatedMovie) => {
     throw new Error(`${response.status} - ${response.statusText}`);
   }
 
-  // console.log(await response.json());
-
   return response.json();
 };
 
@@ -111,4 +109,3 @@ export const deleteMovie = async (movieId: number) => {
 
   return response.json();
 };
-

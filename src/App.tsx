@@ -15,6 +15,7 @@ const App: React.FC = () => {
   const [isSortedAlphabetically, setIsSortedAlphabetically] = useState(false);
   const [selectedMovieId, setSelectedMovieId] = useState(0);
 
+  // downoload movies with actors
   const loadDetailedMovies = async () => {
     const movies: Movie[] = await getAllMovies();
     const moviesIds = movies.map(movie => movie.id);
@@ -30,6 +31,7 @@ const App: React.FC = () => {
     loadDetailedMovies();
   }, []);
 
+  // filter and sort movies
   const filteredMovies = useMemo(() => {
     if (movies) {
       return movies
@@ -70,24 +72,24 @@ const App: React.FC = () => {
         break;
       default:;
     }
-  }
+  };
 
   // reset all filters and sorting
   const handleResetButton = () => {
     setTitleToSearch('');
     setActorToSearch('');
     setIsSortedAlphabetically(false);
-  }
+  };
 
   // set movie id to render movie details
   const seeMovieDetails = (movieId: number) => {
     setSelectedMovieId(movieId);
-  }
+  };
 
   // reset rendering movie details
   const closeMovieDetails = () => {
     setSelectedMovieId(0);
-  }
+  };
 
   return (
     <div className="App">

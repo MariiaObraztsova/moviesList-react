@@ -15,6 +15,7 @@ export const NewMovieForm: React.FC<Props> = React.memo(
     const [actors, setActors] = useState<string[]>([]);
     const [unformattedActors, setUnformattedActors] = useState<string>('');
 
+    // processing controled inputs
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       const { name, value } = event.target
 
@@ -32,19 +33,13 @@ export const NewMovieForm: React.FC<Props> = React.memo(
           setUnformattedActors(value);
           const actors = value.split(',');
 
-          // const preparedActors = actors.map(actor => {
-          //   const actorToAdd = {
-          //     name: actor,
-          //   }
-          //   return actorToAdd;
-          // });
-
           setActors(actors);
           break;
         default:;
       }
     }
 
+    // clear form fields afrter submit
     const clearForm = () => {
       setTitle('');
       setYear(2021);
@@ -53,6 +48,7 @@ export const NewMovieForm: React.FC<Props> = React.memo(
       setUnformattedActors('');
     }
 
+    // processing form submit
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 

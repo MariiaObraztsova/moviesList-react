@@ -10,18 +10,17 @@ type Props = {
 export const MovieDetails: React.FC<Props> = React.memo(
   ({ movieId, movies }) => {
     const [ movie, setMovie ] = useState<Movie>();
-  
+
+    // downoload movie details by movie id
     const loadMovieDetails = async () => {
       const selectedMovie = movies.find(movie => movie.id === movieId);
-  
+
       setMovie(selectedMovie);
-    }
-  
+    };
+
     useEffect(() => {
       loadMovieDetails();
     }, [movieId]);
-
-    console.log(movie);
 
     return (
       <div className="MovieDetail">
