@@ -1,4 +1,4 @@
-import { Movie } from "../types";
+import { CreatedMovie, Movie } from "../types";
 import movies from './movies.txt';
 
 const API_URL = 'http://localhost:8000/api/v1/movies';
@@ -34,7 +34,7 @@ const API_URL = 'http://localhost:8000/api/v1/movies';
 // downoload movies from server
 export const getAllMovies = async () => {
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}?limit=30`, {
       method: 'GET',
       headers: {
         'Authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwZXRyb0BnbWFpbC5jb20iLCJuYW1lIjoiUGV0cm92IFBldHJvIiwiY3JlYXRlZEF0IjoiMjAyMS0xMi0wNVQxNToyNzowOC42MTJaIiwidXBkYXRlZEF0IjoiMjAyMS0xMi0wNVQxNToyNzowOC42MTJaIiwiaWF0IjoxNjM4NzE4MDI4fQ.sCPMPn24hgEA6CIQJADGYh35YjJk11mJI9Zj7KcstXg',
@@ -75,7 +75,7 @@ export const getMovieByID = async (movieId: number) => {
 };
 
 // create new movie on server
-export const createMovie = async (movie: Omit<Movie, 'id'>) => {
+export const createMovie = async (movie: CreatedMovie) => {
   const response = await fetch(API_URL, {
     method: 'POST',
     headers: {
@@ -89,6 +89,8 @@ export const createMovie = async (movie: Omit<Movie, 'id'>) => {
   if (!response.ok) {
     throw new Error(`${response.status} - ${response.statusText}`);
   }
+
+  // console.log(await response.json());
 
   return response.json();
 };

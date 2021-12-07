@@ -3,7 +3,14 @@ export interface Movie {
   title: string,
   year: number,
   format: string,
-  actors: Actor[]
+  actors: Actor[],
+}
+
+export interface CreatedMovie {
+  title: string,
+  year: number,
+  format: string,
+  actors: string[],
 }
 
 export interface Actor {

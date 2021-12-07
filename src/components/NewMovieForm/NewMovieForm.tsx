@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './NewMovieForm.css'
 import { createMovie } from '../../api/api';
-import { Actor } from '../../types';
+// import { Actor } from '../../types';
 
 type Props = {
   updateMovies: () => void,
@@ -12,7 +12,7 @@ export const NewMovieForm: React.FC<Props> = React.memo(
     const [title, setTitle] = useState('');
     const [year, setYear] = useState(2021);
     const [format, setFormat] = useState('');
-    const [actors, setActors] = useState<Actor[]>([]);
+    const [actors, setActors] = useState<string[]>([]);
     const [unformattedActors, setUnformattedActors] = useState<string>('');
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -32,14 +32,14 @@ export const NewMovieForm: React.FC<Props> = React.memo(
           setUnformattedActors(value);
           const actors = value.split(',');
 
-          const preparedActors = actors.map(actor => {
-            const actorToAdd = {
-              name: actor,
-            }
-            return actorToAdd;
-          });
+          // const preparedActors = actors.map(actor => {
+          //   const actorToAdd = {
+          //     name: actor,
+          //   }
+          //   return actorToAdd;
+          // });
 
-          setActors(preparedActors);
+          setActors(actors);
           break;
         default:;
       }
@@ -50,6 +50,7 @@ export const NewMovieForm: React.FC<Props> = React.memo(
       setYear(2021);
       setFormat('');
       setActors([]);
+      setUnformattedActors('');
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

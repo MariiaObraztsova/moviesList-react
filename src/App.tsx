@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import './App.css';
 import './normalization.css'
 import { Movie } from './types';
-import { sendMovies, getAllMovies, getMovieByID } from './api/api';
+import { getAllMovies, getMovieByID } from './api/api';
 
 import { MoviesList } from './components/MoviesList/MoviesList';
 import { MovieDetails } from './components/MovieDetails/MovieDetails';
@@ -17,12 +17,14 @@ const App: React.FC = () => {
 
   const loadDetailedMovies = async () => {
     const movies: Movie[] = await getAllMovies();
-    const moviesIds = movies.map(movie => movie.id)
+    const moviesIds = movies.map(movie => movie.id);
+    console.log(moviesIds);
 
-    const detailedMovies = await Promise.all(moviesIds.map((id: number) =>getMovieByID(id)))
+    const detailedMovies = await Promise.all(moviesIds.map((id: number) =>getMovieByID(id)));
 
-    setMovies(detailedMovies)
-  }
+    setMovies(detailedMovies);
+    console.log(detailedMovies);
+  };
 
   useEffect(() => {
     loadDetailedMovies();
