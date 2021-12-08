@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import './App.css';
 import './normalization.css'
 import { Movie } from './types';
-import { getAllMovies, getMovieByID } from './api/api';
+import { sendMovies, getAllMovies, getMovieByID } from './api/api';
 
 import { MoviesList } from './components/MoviesList/MoviesList';
 import { MovieDetails } from './components/MovieDetails/MovieDetails';
@@ -16,20 +16,19 @@ const App: React.FC = () => {
   const [selectedMovieId, setSelectedMovieId] = useState(0);
 
   // downoload movies with actors
-  const loadDetailedMovies = async () => {
+  const loadDetailedMovies = useCallback(async () => {
     const movies: Movie[] = await getAllMovies();
     const moviesIds = movies.map(movie => movie.id);
-    console.log(moviesIds);
 
     const detailedMovies = await Promise.all(moviesIds.map((id: number) =>getMovieByID(id)));
 
     setMovies(detailedMovies);
-    console.log(detailedMovies);
-  };
+  }, []);
 
   useEffect(() => {
+    sendMovies();
     loadDetailedMovies();
-  }, []);
+  }, [ loadDetailedMovies ]);
 
   // filter and sort movies
   const filteredMovies = useMemo(() => {
