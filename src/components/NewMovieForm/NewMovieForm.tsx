@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './NewMovieForm.css'
 import { createMovie } from '../../api/api';
-// import { Actor } from '../../types';
 
 type Props = {
   updateMovies: () => void,
@@ -52,12 +51,13 @@ export const NewMovieForm: React.FC<Props> = React.memo(
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
+      const tokenForLogin = localStorage.getItem('token') || '';
       const newMovie = await createMovie({
         title,
         year,
         format,
         actors,
-      });
+      }, tokenForLogin);
 
       if (newMovie) {
         updateMovies();

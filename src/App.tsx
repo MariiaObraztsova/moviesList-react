@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import './App.css';
 import './normalization.css'
 import { Movie } from './types';
-import { sendMovies, getAllMovies, getMovieByID } from './api/api';
+import { sendMovies, getAllMovies, getMovieByID, createUser, createSession } from './api/api';
 
 import { MoviesList } from './components/MoviesList/MoviesList';
 import { MovieDetails } from './components/MovieDetails/MovieDetails';
@@ -15,18 +15,32 @@ const App: React.FC = () => {
   const [isSortedAlphabetically, setIsSortedAlphabetically] = useState(false);
   const [selectedMovieId, setSelectedMovieId] = useState(0);
 
-  // downoload movies with actors
-  const loadDetailedMovies = useCallback(async () => {
-    const movies: Movie[] = await getAllMovies();
-    const moviesIds = movies.map(movie => movie.id);
+  const createToken = async () => {
+    const token = await createUser();
 
-    const detailedMovies = await Promise.all(moviesIds.map((id: number) =>getMovieByID(id)));
-
-    setMovies(detailedMovies);
-  }, []);
+    localStorage.setItem('token', token.token);
+    console.log(token);
+  }
 
   useEffect(() => {
-    sendMovies();
+    createToken();
+    const tokenForLogin = localStorage.getItem('token') || '';
+    createSession();
+    sendMovies(tokenForLogin);
+  }, []);
+
+    // downoload movies with actors
+    const loadDetailedMovies = useCallback(async () => {
+      const tokenForLogin = localStorage.getItem('token') || '';
+      const movies: Movie[] = await getAllMovies(tokenForLogin);
+      const moviesIds = movies.map(movie => movie.id);
+
+      const detailedMovies = await Promise.all(moviesIds.map((id: number) => getMovieByID(id, tokenForLogin)));
+
+      setMovies(detailedMovies);
+    }, []);
+
+  useEffect(() => {
     loadDetailedMovies();
   }, [ loadDetailedMovies ]);
 
@@ -58,7 +72,7 @@ const App: React.FC = () => {
     }
   }, [movies, titleToSearch, actorToSearch, isSortedAlphabetically]);
 
-  // processing controlled inputs for searching by title and actor
+// processing controlled inputs for searching by title and actor
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
 
@@ -94,7 +108,9 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App__header">
         <div className="App__form">
-          <NewMovieForm updateMovies={loadDetailedMovies} />
+          <NewMovieForm
+            updateMovies={loadDetailedMovies}
+          />
         </div>
       </header>
 

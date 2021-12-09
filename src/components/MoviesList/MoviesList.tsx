@@ -17,7 +17,7 @@ export const MoviesList: React.FC<Props> = ({
   preparedMovies,
   seeMovieDetails,
   closeMovieDetails,
-  updateMovies
+  updateMovies,
 }) => {
   return (
     <div className="MoviesList">
@@ -37,7 +37,8 @@ export const MoviesList: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={() => {
-                  deleteMovie(movie.id);
+                  const tokenForLogin = localStorage.getItem('token') || '';
+                  deleteMovie(movie.id, tokenForLogin);
                   updateMovies();
                 }}
               >
