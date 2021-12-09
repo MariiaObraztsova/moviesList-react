@@ -3,7 +3,7 @@ import './NewMovieForm.css'
 import { createMovie } from '../../api/api';
 
 type Props = {
-  updateMovies: () => void,
+  updateMovies: (token: string) => Promise<void>,
 }
 
 export const NewMovieForm: React.FC<Props> = React.memo(
@@ -60,7 +60,8 @@ export const NewMovieForm: React.FC<Props> = React.memo(
       }, tokenForLogin);
 
       if (newMovie) {
-        updateMovies();
+        const tokenForLogin = localStorage.getItem('token') || '';
+        updateMovies(tokenForLogin);
       }
 
       clearForm();

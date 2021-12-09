@@ -12,7 +12,7 @@ const API_URL = 'http://localhost:8000/api/v1/movies';
           'Accept': 'application/json',
           'Content-Type': 'application/json'
          },
-        body: "{\n    \"email\": \"mariiaobraztsova0@gmail.com\",\n    \"name\": \"Obraztsova Mariia\",\n    \"password\": \"super-password3000\",\n    \"confirmPassword\": \"super-password3000\"\n}",
+        body: "{\n    \"email\": \"mariiaobraztsova88@gmail.com\",\n    \"name\": \"Obraztsova Mariia\",\n    \"password\": \"super-password3000\",\n    \"confirmPassword\": \"super-password3000\"\n}",
         redirect: 'follow',
       });
   
@@ -32,7 +32,7 @@ const API_URL = 'http://localhost:8000/api/v1/movies';
     try {
       const response = await fetch('http://localhost:8000/api/v1/sessions', {
         method: 'POST',
-        body: "{\n    \"email\": \"mariiaobraztsova0@gmail.com\",\n    \"password\": \"super-password3000\"\n}",
+        body: "{\n    \"email\": \"mariiaobraztsova88@gmail.com\",\n    \"password\": \"super-password3000\"\n}",
         redirect: 'follow',
       });
   

@@ -9,7 +9,7 @@ type Props = {
   preparedMovies: Movie[],
   seeMovieDetails: (movieId: number) => void,
   closeMovieDetails: () => void,
-  updateMovies: () => void,
+  updateMovies: (token: string) => Promise<void>,
 }
 
 export const MoviesList: React.FC<Props> = ({
@@ -39,7 +39,7 @@ export const MoviesList: React.FC<Props> = ({
                 onClick={() => {
                   const tokenForLogin = localStorage.getItem('token') || '';
                   deleteMovie(movie.id, tokenForLogin);
-                  updateMovies();
+                  updateMovies(tokenForLogin);
                 }}
               >
                 Delete movie

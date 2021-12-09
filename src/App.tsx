@@ -19,30 +19,32 @@ const App: React.FC = () => {
     const token = await createUser();
 
     localStorage.setItem('token', token.token);
-    console.log(token);
   }
 
-  useEffect(() => {
-    createToken();
-    const tokenForLogin = localStorage.getItem('token') || '';
-    createSession();
-    sendMovies(tokenForLogin);
+  const loadDetailedMovies = useCallback(async (token: string) => {
+
+    const movies: Movie[] = await getAllMovies(token);
+    const moviesIds = movies.map(movie => movie.id);
+
+    const detailedMovies = await Promise.all(
+      moviesIds.map((id: number) => getMovieByID(id, token))
+    );
+
+    setMovies(detailedMovies);
   }, []);
 
-    // downoload movies with actors
-    const loadDetailedMovies = useCallback(async () => {
-      const tokenForLogin = localStorage.getItem('token') || '';
-      const movies: Movie[] = await getAllMovies(tokenForLogin);
-      const moviesIds = movies.map(movie => movie.id);
-
-      const detailedMovies = await Promise.all(moviesIds.map((id: number) => getMovieByID(id, tokenForLogin)));
-
-      setMovies(detailedMovies);
-    }, []);
-
   useEffect(() => {
-    loadDetailedMovies();
-  }, [ loadDetailedMovies ]);
+    const init = async () => {
+      await createToken();
+      const tokenForLogin = localStorage.getItem('token') || '';
+      await createSession();
+      await sendMovies(tokenForLogin);
+
+      await loadDetailedMovies(tokenForLogin);
+    }
+
+    init();
+  }, []);
 
   // filter and sort movies
   const filteredMovies = useMemo(() => {
